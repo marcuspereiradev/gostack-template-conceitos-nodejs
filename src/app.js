@@ -12,7 +12,13 @@ app.use(cors());
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
-  // TODO
+  const { title } = request.query;
+
+  const result = title
+    ? repositories.find((repository) => repository.title.includes(title))
+    : repositories;
+
+  return response.status(200).json(result);
 });
 
 app.post("/repositories", (request, response) => {
