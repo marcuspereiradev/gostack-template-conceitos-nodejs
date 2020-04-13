@@ -62,7 +62,15 @@ app.delete("/repositories/:id", (request, response) => {
 });
 
 app.post("/repositories/:id/like", (request, response) => {
-  // TODO
+  const { id } = request.params;
+
+  const repository = repositories.find((repository) => repository.id == id);
+
+  if (!isUuid(id)) return response.status(400).json({ error: "Invalid repository id" });
+
+  repository.likes++;
+
+  return response.json(repository);
 });
 
 module.exports = app;
