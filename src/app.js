@@ -11,6 +11,11 @@ app.use(cors());
 
 const repositories = [];
 
+function noUpdateLikes (request, response, next) {
+  const { likes } = request.body;
+
+}
+
 app.get("/repositories", (request, response) => {
   const { title } = request.query;
 
@@ -41,7 +46,8 @@ app.put("/repositories/:id", (request, response) => {
   if (repoIndex < 0)
     return response.status(400).json({error: "Project not found"});
 
-  const updatedRepository = { id, title, url, techs };
+  const likes = repositories[repoIndex].likes;
+  const updatedRepository = { id, title, url, techs, likes };
 
   repositories[repoIndex] = updatedRepository;
 
